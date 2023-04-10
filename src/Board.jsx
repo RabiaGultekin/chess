@@ -4,7 +4,7 @@ const Board = ({board}) => {
     console.log("boradrd", board)
   return (
     <div>
-      Board
+      Board 23
     </div>
   )
 }
