@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
+import Board from './Board';
+import subjectGame from './Game';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [board, setBoard] = useState([]);
+  useEffect(() => {
+    const subscribe = subjectGame.subscribe(sub => setBoard(sub.chess))
+
+    return () => subscribe.unsubscribe();
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div>
+        <Board board={board} />
+      </div>
+    </DndProvider>
+
   );
 }
 
